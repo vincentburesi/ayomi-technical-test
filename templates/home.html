@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>{% block title %}Ayomi home{% endblock %}</h1>
+        <p class="row">
+            {% if user.is_authenticated %}
+                <p>You are now logged in as <strong>{{ user.username }}</strong> and your email address is <strong>{{ user.email|default:"unspecifed" }}</strong></p>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#editModal">Edit</button>
+                        {% include 'modals/edit.html' with id="editModal" title="Edit" %}
+                    </div>
+                    <div class="col">
+                        <a class="btn btn-danger btn-block" href="{% url 'logout' %}">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-primary btn-block">Please login</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
