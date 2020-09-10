@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   db:
@@ -11,8 +11,12 @@ services:
     build: .
     command: python manage.py runserver 0:8000
     volumes:
-      - .:/code
+      - ./.:/code:ro
     ports:
       - "8000:8000"
     depends_on:
       - db
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3

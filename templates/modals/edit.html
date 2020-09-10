@@ -1,5 +1,19 @@
 {% extends 'modals/base.html' %}
 
 {% block modal-body %}
-    {% include 'forms/base.html' with form=form %}
+    <div id="alertPlaceholder"></div>
+    <form method="post" id="editUserForm">
+        {% csrf_token %}
+        {% include 'forms/base.html' with form=form %}
+    </form>
+{% endblock %}
+
+{% block modal-footer %}
+    <button class="btn btn-secondary" data-dismiss="modal">{{ close_label|default:"Close" }}</button>
+    <button class="btn btn-primary" type="submit" form="editUserForm">{{ submit_label|default:"Save changes" }}</button>
+    <script type="text/javascript">
+    window.addEventListener("load", function () {
+        formSubmitter($("#editUserForm")[0])
+    });
+    </script>
 {% endblock %}
